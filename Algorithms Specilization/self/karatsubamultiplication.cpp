@@ -29,9 +29,6 @@ int basicCompute(int num1, int num2) //basic recursion
     return num1+basicCompute(num1, num2-1);
 }
 
-
-
-
 int karatsubaCompute(int num1, int num2) //x*y = 10^(n)ac+10^(n/2)(ad+bc)+bd
 {
     if (num1 < 10 && num2 < 10) //base case
