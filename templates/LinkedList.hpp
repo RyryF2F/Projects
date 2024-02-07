@@ -117,10 +117,10 @@ void LinkedList<T>::insert(int index, T const& data)
     if (index == 0)
     {
         insertFirst(data);
-    }
-
-    if (head)
+    }else
     {
+        if (head)
+        {
         LinkedNode<T>* temp = new LinkedNode<T>(data);
         LinkedNode<T>* root = head;
 
@@ -142,10 +142,13 @@ void LinkedList<T>::insert(int index, T const& data)
 
         root->next = temp;
         root = nullptr;
-    }else
-    {
-        throw out_of_range;
+        }else
+        {
+            throw out_of_range;
+        }
     }
+
+    
 }
 
 template<typename T>
