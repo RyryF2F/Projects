@@ -19,36 +19,41 @@ int main()
     return 0;
 }
 
-
-int basicCompute(int num1, int num2) //basic recursion
+/**
+ * Basic recursion to calculate sum of two numbers
+*/
+int basicCompute(int num1, int num2)
 {
-    if (num2 == 0) //base case
+    if (num2 == 0)
     {
         return 0;
     }
     return num1+basicCompute(num1, num2-1);
 }
 
+/**
+ * Karatsuba method to calculate sum of two numbers
+*/
 int karatsubaCompute(int num1, int num2) //x*y = 10^(n)ac+10^(n/2)(ad+bc)+bd
 {
-    if (num1 < 10 && num2 < 10) //base case
+    if (num1 < 10 && num2 < 10)
         return num1*num2;
 
     int s = max(size_base10(num1), size_base10(num2));
     int s2 = (s % 2 == 0) ? s/2 : (s/2)+1; 
+    int s2_pow10 = (int)pow(10, s2);
 
-
-    int a = num1 / (int)pow(10, s2);
-    int b = num1 % (int)pow(10, s2);
-    int c = num2 / (int)pow(10, s2);
-    int d = num2 % (int)pow(10, s2);
+    int a = num1 / s2_pow10;
+    int b = num1 % s2_pow10;
+    int c = num2 / s2_pow10;
+    int d = num2 % s2_pow10;
 
     int ac = karatsubaCompute(a,c);
     int bd = karatsubaCompute(b,d);
     int adbc = karatsubaCompute((a+b), (c+d));
 
     int gauss = adbc - bd - ac;
-    int ret = (ac * pow(10, 2*s2)) + (gauss * pow(10, s2)) + bd; //O(n^2) -> O(n^log3)
+    int ret = (ac * pow(10, 2*s2)) + (gauss * s2_pow10) + bd; //O(n^2) -> O(n^log3)
     return ret;
 }
 
